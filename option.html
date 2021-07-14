@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+    <meta charset="utf-8" />
+    <title>喔喔图床</title>
+    <meta http-equiv="content-type" content="text/html;charset=utf-8">
+    <link rel="shortcut icon" href="icon.png" type="image/x-icon">
+    <link type="text/css" href="css/bootstrap.min.css" rel="stylesheet">
+    <link type="text/css" href="css/sweet-alert.min.css" rel="stylesheet">
+    <link type="text/css" href="source/jquery.fancybox.css" rel="stylesheet">
+    <link type="text/css" href="css/option.css" rel="stylesheet">
+</head>
+
+<body>
+    <button type="button" class="close" title="关闭" style="margin:20px;">×</button>
+    <div class="container">
+        <div class="row">
+            <div id="tips_wrap">
+                <div class="col-xs-12 tips" style="padding-left: 65px;padding-bottom: 0;">
+                    <ul>
+                        <li>喔喔图床，为了解决个人博客外链图片而开发的Chrome插件</li>
+                        <li>当前版本:<span title="点击小额捐赠" class="current_version donate">${current_version})</span>,
+                            查看源码及帮助：<a href="https://github.com/Chinaxiang/oopic" target="_blank">点我跳转</a> </li>
+                        <li>可以扩展下方JS以实现其他更多存储后端的支持</li>
+                        <li>使用中碰到任何问题，可以加我微信(备注:喔喔图床)：<code>hyx2011</code>，或者邮件：<code>forkmail@qq.com</code></li>
+                    </ul>
+                </div>
+                <div class="col-xs-12 tips">
+                    <form class="form" action="javascript:;">
+                        <div class="form-group">
+                            <label>选择插件</label>
+                            <select class="form-control" id="typeSelect">
+                                <option value="SMMS">SMMS</option>
+                                <option value="图壳">图壳</option>
+                                <option value="阿里云OSS">阿里云OSS</option>
+                                <option value="七牛云OSS">七牛云OSS</option>
+                                <option value="自定义">自定义</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label">插件详情</label>
+                            <textarea id="content" class="form-control" rows="10">
+upUrl = 'https://sm.ms/api/v2/upload';
+function buildForm(file) {
+    var data = new FormData();
+    data.append('smfile', file);
+    return data;
+}
+function parseRet(text, formData) {
+    var res = JSON.parse(text);
+    var image_url = res.data ? res.data.url : res.images;
+    return image_url;
+}
+                            </textarea>
+                        </div>
+                        <span id="change" class="btn btn-info">切换/修改 插件</span>
+                    </form>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="box"></div>
+        </div>
+    </div>
+    <script id="image-item-template" type="template">
+        <div class="col-md-2 animated fadeInUp">
+            <div class="page-header">{{date}}</div>
+            <div class="page-content fancybox" d="{{d}}" data-fancybox-group="gallery" rel="gallery" href="{{imgsrc}}" title="{{imgsrc}}" style="background-image:url('{{imgsrcthumb}}')"></div>
+        </div>
+    </script>
+    <script src="js/jquery.min.js"></script>
+    <script src="js/bootstrap.min.js"></script>
+    <script src="js/sweet-alert.min.js"></script>
+    <script src="source/jquery.fancybox.pack.js"></script>
+    <script src="js/option.js"></script>
+</body>
+
+</html>

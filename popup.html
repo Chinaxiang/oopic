@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <title>喔喔图床</title>
+    <link rel="stylesheet" href="css/bootstrap.min.css">
+    <link rel="stylesheet" href="css/sweet-alert.min.css">
+    <link rel="stylesheet" href="css/loaders.min.css">
+    <link rel="stylesheet" href="css/popup.css">
+</head>
+
+<body>
+    <div class="loading-bar"></div>
+    <div class="loader-wrap text-center">
+        <div class="loader-inner line-scale">
+            <div></div>
+            <div></div>
+            <div></div>
+            <div></div>
+            <div></div>
+        </div>
+    </div>
+    <div class="container main" id="qrcode" style="display: none;">
+        <div class="text-center">
+            <img src="qrcode.jpg">
+        </div>
+        <div class="text-center">
+            <h4><code>字节小食</code></h4>
+            <h4>微信扫描二维码，回复“喔喔图床”</h4>
+            <p class="text-muted" style="margin-top: 30px;">点击二维码关闭，本公众号会不定期分享技术杂文，欢迎关注交流</p>
+            <p class="text-muted"><a class="optionPage" href="javascript:;">设置/历史</a></p>
+        </div>
+    </div>
+    <div class="container main" id="main" style="display: block;">
+        <div class="row">
+            <div class="col-xs-12">
+                <div class="alert alert-warning alert-dismissible fade in" role="alert">
+                    <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span
+                            aria-hidden="true">×</span></button>
+                    <strong>公告栏：</strong> <span id="notify">请勿上传敏感图片，谢谢配合。</span>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <input id="input" type="file" class="uploadTrigger" style="display:none;" accept="image/*" multiple>
+            <div class="col-xs-4 pull-left">
+                <p style="padding-top:6px;margin-left:10px;">单击或者拖拽图片到此 | <a class="optionPage"
+                        href="javascript:;">设置/历史</a></p>
+            </div>
+            <div class="col-xs-8">
+                <div class="btn-group" style="display:none" role="group">
+                    <button type="button" class="btn btn-default btn-format active" value="1">A</button>
+                    <button type="button" class="btn btn-default btn-format" value="2">H</button>
+                    <button type="button" class="btn btn-default btn-format" value="3">U</button>
+                    <button type="button" class="btn btn-default btn-format" value="4">M</button>
+                </div>
+                <div class="pull-right" style="display:none">
+                    <button type="button" class="btn btn-default btn-batchcopy" disabled>一键复制所有地址</button>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-xs-4 single-model">
+                <figure>
+                    <img src="placeholder.png" id="uploadPlaceHolder" class="dragger clicker">
+                </figure>
+                <span class="file-info"> <span id="fileName"></span> / <span id="fileSize"></span> </span>
+                <br>
+                <div id="single-progress" class="progress">
+                    <div class="progress-bar progress-bar-info progress-bar-striped" role="progressbar"
+                        aria-valuenow="20" aria-valuemi="0" aria-valuemax="100" style="width: 0%">
+                        <span class="sr-only">20% Complete</span>
+                    </div>
+                </div>
+            </div>
+            <div class="col-xs-8 single-model">
+                <div class="link-item">
+                    <strong>图片链接<small class="muted">(试一试粘贴图片到这里↓)</small></strong>
+                    <div class="input-append">
+                        <input class="res col-xs-10" id="res_img" value="" spelcheck="false" />
+                        <button type="button" class="btn btn-default btn-copy disabled">复制</button>
+                    </div>
+                </div>
+                <div class="link-item">
+                    <strong>HTML</strong>
+                    <div class="input-append">
+                        <input class="res col-xs-10" id="res_html" value="" spellcheck="false" readonly="true" />
+                        <button type="button" class="btn btn-default btn-copy disabled">复制</button>
+                    </div>
+                </div>
+                <div class="link-item">
+                    <strong>UBB</strong>
+                    <div class="input-append">
+                        <input class="res col-xs-10" id="res_ubb" value="" spellcheck="false" readonly="true" />
+                        <button type="button" class="btn btn-default btn-copy disabled">复制</button>
+                    </div>
+                </div>
+                <div class="link-item">
+                    <strong>Markdown</strong>
+                    <div class="input-append">
+                        <input class="res col-xs-10" id="res_md" value="" spellcheck="false" readonly="true" />
+                        <button type="button" class="btn btn-default btn-copy disabled">复制</button>
+                    </div>
+                </div>
+            </div>
+            <div class="col-xs-12 batch-model">
+                <div>
+                    <img src="placeholder-batch.png" class="dragger clicker">
+                </div>
+            </div>
+        </div>
+        <div class="navbar-fixed-bottom">
+            <div class="col-xs-8" style="padding: 15px;">
+                <span id="statusBadge" title="SMMS" class="badge badge-success">SMMS</span>
+                <a id="help" href="javascript:;">帮助？</a>
+            </div>
+            <div class="col-xs-4">
+                <button class="pull-right btn btn-default btn-batch" type="button">批量模式</button>
+            </div>
+        </div>
+    </div>
+    <script type="text/javascript" src="js/jquery.min.js"></script>
+    <script type="text/javascript" src="js/bootstrap.min.js"></script>
+    <script type="text/javascript" src="js/sweet-alert.min.js"></script>
+    <script type="text/javascript" src="js/crypto-js.min.js"></script>
+    <script type="text/javascript" src="js/base64.js"></script>
+    <script type="text/javascript" src="js/popup.js"></script>
+</body>
+
+</html>

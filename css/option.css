@@ -1,0 +1,146 @@
+* {
+    margin: 0;
+    padding: 0;
+    outline-style: none;
+    box-shadow: none;
+    border-color: transparent;
+}
+
+*:focus {
+    outline: 0 !important;
+    -webkit-appearance: none;
+}
+
+body {
+    margin-bottom: 60px;
+    background-color: #EDEFF0;
+    background-size: cover;
+}
+
+.box {
+    background-color: #FFF;
+    margin-top: 40px;
+    min-height: 590px;
+    padding: 10px;
+    font-size: 12px;
+    font-weight: 100;
+    line-height: 1.48;
+    color: #514F47;
+    border-radius: 10px;
+    box-shadow: 1px 1px 3px rgba(100, 100, 100, 0.15);
+    overflow-y: auto;
+}
+
+.page-header {
+    margin: 10px 0;
+    padding-top: 12px;
+    padding-left: 1px;
+    line-height: 0px;
+    color: #989898;
+}
+
+.page-content {
+    width: 100%;
+    min-height: 135px;
+    text-align: center;
+    display: inline-block;
+    background-size: contain;
+    background-position: 50% 50%;
+    background-repeat: no-repeat;
+    transition: 0.3s;
+    -webkit-transition: 0.3s;
+    box-shadow: 0 14px 20px -20px #000;
+}
+
+.page-content:hover {
+    cursor: pointer;
+    background-color: #000;
+    opacity: 0.6;
+    box-shadow: 0 20px 20px -20px #000;
+    transform: scale(1.05);
+    -webkit-transform: scale(1.05);
+}
+
+#tips_wrap {
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+    border-radius: 5px;
+    color: #555;
+    text-shadow: none;
+    margin: 30px 0 50px 0;
+}
+
+.tips {
+    color: #999;
+    padding: 20px 50px;
+    background: #fff;
+    font-size: 11px;
+    line-height: 22px;
+}
+
+.tips a {
+    color: #969696;
+    padding: 2px 4px;
+    transition: 0.3s;
+    -webkit-transition: 0.3s;
+    border-radius: 3px;
+    background-color: rgba(180, 208, 236, 0.2);
+}
+
+.tips a:hover {
+    color: #000;
+    background-color: rgba(180, 208, 236, 0.5);
+}
+
+span.donate {
+    color: #666;
+    cursor: pointer;
+    margin: 0 3px;
+    padding: 2px 4px;
+    transition: 0.3s;
+    -webkit-transition: 0.3s;
+    border-radius: 3px;
+    background-color: rgba(238, 9, 22, 0.1);
+}
+
+.donate:hover {
+    color: #000;
+    background-color: rgba(180, 208, 236, 0.95);
+}
+
+.animated {
+    -webkit-animation-duration: 1s;
+    animation-duration: 1s;
+    -webkit-animation-fill-mode: both;
+    animation-fill-mode: both;
+}
+
+@-webkit-keyframes fadeInUp {
+    from {
+        opacity: 0;
+        -webkit-transform: translate3d(0, 100%, 0);
+        transform: translate3d(0, 100%, 0);
+    }
+    to {
+        opacity: 1;
+        -webkit-transform: none;
+        transform: none;
+    }
+}
+
+@keyframes fadeInUp {
+    from {
+        opacity: 0;
+        -webkit-transform: translate3d(0, 100%, 0);
+        transform: translate3d(0, 100%, 0);
+    }
+    to {
+        opacity: 1;
+        -webkit-transform: none;
+        transform: none;
+    }
+}
+
+.fadeInUp {
+    -webkit-animation-name: fadeInUp;
+    animation-name: fadeInUp;
+}
