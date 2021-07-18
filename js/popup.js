@@ -200,7 +200,7 @@ Pb.prototype = {
             }
         });
         $('#input').change(function (event) {
-            localStorage.removeItem('webImg');
+            // localStorage.removeItem('webImg');
             event.preventDefault();
             var filesToUpload = document.getElementById('input').files;
             var img_files = [];
@@ -213,7 +213,7 @@ Pb.prototype = {
             Pb.prototype.getImageFile(img_files, filesToUpload.length);
         });
         $("body").on('drop', function (e) {
-            localStorage.removeItem('webImg');
+            // localStorage.removeItem('webImg');
             e.preventDefault();
             var fileList = e.originalEvent.dataTransfer.files;
             var img_files = [];
@@ -226,7 +226,7 @@ Pb.prototype = {
             Pb.prototype.getImageFile(img_files, fileList.length);
         });
         $("#res_img").on("paste", function (e) {
-            localStorage.removeItem('webImg');
+            // localStorage.removeItem('webImg');
             var oe = e.originalEvent;
             var clipboardData, items, item;
             if (oe && (clipboardData = oe.clipboardData) && (items = clipboardData.items)) {

@@ -19,14 +19,9 @@
   "options_page": "option.html",
   "permissions": [
     "storage", 
-    "notifications", 
-    "tts", 
-    "webRequest", 
-    "webRequestBlocking", 
     "*://*/", 
     "tabs", 
     "contextMenus",
-    "webNavigation",
     "clipboardWrite",
     "clipboardRead"
   ],

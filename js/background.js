@@ -1,6 +1,5 @@
 
 
-// 弹出页，主页
 function initPopupPage(url = 'popup.html', callback) {
 	var w = 800;
 	var h = 550;
@@ -18,7 +17,6 @@ function initPopupPage(url = 'popup.html', callback) {
 	}, callback);
 }
 
-// 向网页中的图片注册右键，在图片上点击右键可以看到
 chrome.contextMenus.create({
 	title: '上传图片',
 	id: 'uploadPic',
@@ -49,7 +47,6 @@ chrome.contextMenus.onClicked.addListener(function (itemData) {
 	}
 });
 
-// 浏览器扩展图标点击触发事件
 chrome.browserAction.onClicked.addListener(function (tab) {
 	var w = 800;
 	var h = 550;
@@ -72,7 +69,6 @@ chrome.browserAction.onClicked.addListener(function (tab) {
 	});
 });
 
-//显示桌面通知
 function showMessage(title, content) {
 	var n = new Notification(title, {
 		lang: "utf-8",
