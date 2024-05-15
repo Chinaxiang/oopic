@@ -8,10 +8,10 @@
 - 支持右键上传网页图片
 - 支持批量上传
 - 可生成图片链接,HTML,UBB和Markdown四种格式
-- 历史浏览
-- 支持配置多种存储后端
+- 历史浏览（仅限浏览器本地缓存，清缓存将会失效）
+- 支持配置多种存储后端（默认阿里云）
 
-好用记得给点好评哟。
+好用记得给点好评哟。阔绰的小伙伴也可以打赏一下。
 
 ### 默认存储
 
@@ -19,36 +19,6 @@
 
 - 大小5M内
 - 每分钟，每小时，每天，每周，每月有一定数量的限制，应该足够用
-
-
-### 图壳
-
-图壳，免费图床，请阅读须知：https://imgkr.com/
-
-图壳上传校验Referer, Chrome现在禁用了ajax referer头的更改，所以需要配置一个代理服务器进行中转。
-
-[图壳配置本地代理](https://mp.weixin.qq.com/s/BB41sswbMrQfreitQPDzjA)
-
-> curl 模拟
-
-```
-curl -X POST -H "Referer: https://imgkr.com/" -F 'file=@qrcode.jpg' https://imgkr.com/api/files/upload
-```
-
-> nginx 配置
-
-```
-location /api/files/upload {
-    proxy_set_header Host imgkr.com;
-    proxy_set_header Referer https://imgkr.com/;
-    proxy_set_header Origin https://imgkr.com/;
-    proxy_pass https://imgkr.com;
-}
-```
-
-### 七牛云存储
-
-现在的bucket需要绑定自己的域名，域名还需要备案，比较难搞，建议直接上阿里云OSS.
 
 ### 阿里云OSS
 
@@ -62,17 +32,20 @@ https://help.aliyun.com/document_detail/31988.htm
 
 有一定开发能力的可以根据其他存储进行扩展，提供如下资料：
 
-- upUrl: 上传接口完全路径，POST 表单上传
-- buildForm(file): 构建表单参数方法
-- parseRet(text, formData): 解析ajax响应内容，返回图片的完全访问路径
+- upUrl: 请提供您个人服务端上传接口完全路径，POST 表单上传
+- buildForm(file): 构建表单参数方法，您可以填写个人自定义字段至form表单中
+- parseRet(text, formData): 解析ajax响应内容，返回图片的完全访问路径用于快速复制及历史记录
 
 ```
-upUrl = 'http://yoururl';
+// 上传接口
+upUrl = 'https://yoururl';
+// 构建form表单数据，file表示待上传的文件
 function buildForm(file) {
     var data = new FormData();
     data.append('file', file);
     return data;
 }
+// 返回服务端响应的图片访问链接
 function parseRet(text, formData) {
     var res = JSON.parse(text);
     var image_url = res.data;
