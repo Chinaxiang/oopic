@@ -6,7 +6,10 @@ if (blob) {
     window.close();
 }
 // 上传地址
-var upUrl = 'https://sm.ms/api/v2/upload';
+var upUrl = 'https://oosnail.oss-cn-hangzhou.aliyuncs.com';
+
+var accessKey;
+var secretKey;
 
 Date.prototype.format = function (format) {
     var date = {
@@ -201,6 +204,10 @@ Pb.prototype = {
         });
         $('#input').change(function (event) {
             // localStorage.removeItem('webImg');
+            if (!(accessKey && secretKey)) {
+                swal("请配置您的 accessKey 和 secretKey ~");
+                return false;
+            }
             event.preventDefault();
             var filesToUpload = document.getElementById('input').files;
             var img_files = [];
@@ -214,6 +221,10 @@ Pb.prototype = {
         });
         $("body").on('drop', function (e) {
             // localStorage.removeItem('webImg');
+            if (!(accessKey && secretKey)) {
+                swal("请配置您的 accessKey 和 secretKey ~");
+                return false;
+            }
             e.preventDefault();
             var fileList = e.originalEvent.dataTransfer.files;
             var img_files = [];
@@ -227,6 +238,10 @@ Pb.prototype = {
         });
         $("#res_img").on("paste", function (e) {
             // localStorage.removeItem('webImg');
+            if (!(accessKey && secretKey)) {
+                swal("请配置您的 accessKey 和 secretKey ~");
+                return false;
+            }
             var oe = e.originalEvent;
             var clipboardData, items, item;
             if (oe && (clipboardData = oe.clipboardData) && (items = clipboardData.items)) {
@@ -375,6 +390,7 @@ Pb.prototype = {
             swal("您拖的不是图片~");
             return false;
         }
+
     },
     previewAndUpload: function (file, i) {
         Pb.prototype.uploadFinishEvent();
@@ -489,14 +505,26 @@ Pb.prototype = {
 };
 
 function parseRet(text, formData) {
-    var res = JSON.parse(text);
-    var image_url = res.data ? res.data.url : res.images;
-    return image_url;
+    return upUrl + '/' + formData.get('key');
 }
 
 function buildForm(file) {
+    var policyText = {
+        "expiration": new Date((Date.now() + 300000)).toISOString(),
+        "conditions": [
+            ["content-length-range", 0, 104857600]
+        ]
+    };
+    var policyBase64 = Base64.encode(JSON.stringify(policyText));
+    var signature = CryptoJS.enc.Base64.stringify(CryptoJS.HmacSHA1(policyBase64, secretKey));
     var data = new FormData();
-    data.append('smfile', file);
+    var key = new Date().format('yyyy/MM/dd/h/') + random_string(9) + get_suffix(file.name);
+    data.append('key', key);
+    data.append('policy', policyBase64);
+    data.append('OSSAccessKeyId', accessKey);
+    data.append('success_action_status', '200');
+    data.append('signature', signature);
+    data.append('file', file);
     return data;
 }
 
@@ -533,6 +561,10 @@ chrome.runtime.onMessage.addListener((request, sender, sendResponse) => {
     switch (request.message) {
         case 'uploadImageDataByURL':
             var imageURL = request.url;
+            if (!(accessKey && secretKey)) {
+                swal("请配置您的 accessKey 和 secretKey ~");
+                return false;
+            }
             if (imageURL) {
                 Pb.prototype.imageToBase64(imageURL, (base64, data) => {
                     localStorage.webImg = 1;
