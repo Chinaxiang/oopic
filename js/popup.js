@@ -8,9 +8,6 @@ if (blob) {
 // 上传地址
 var upUrl = 'https://oosnail.oss-cn-hangzhou.aliyuncs.com';
 
-var accessKey;
-var secretKey;
-
 Date.prototype.format = function (format) {
     var date = {
         "M+": this.getMonth() + 1,
@@ -204,10 +201,6 @@ Pb.prototype = {
         });
         $('#input').change(function (event) {
             // localStorage.removeItem('webImg');
-            if (!(accessKey && secretKey)) {
-                swal("请配置您的 accessKey 和 secretKey ~");
-                return false;
-            }
             event.preventDefault();
             var filesToUpload = document.getElementById('input').files;
             var img_files = [];
@@ -221,10 +214,6 @@ Pb.prototype = {
         });
         $("body").on('drop', function (e) {
             // localStorage.removeItem('webImg');
-            if (!(accessKey && secretKey)) {
-                swal("请配置您的 accessKey 和 secretKey ~");
-                return false;
-            }
             e.preventDefault();
             var fileList = e.originalEvent.dataTransfer.files;
             var img_files = [];
@@ -238,10 +227,6 @@ Pb.prototype = {
         });
         $("#res_img").on("paste", function (e) {
             // localStorage.removeItem('webImg');
-            if (!(accessKey && secretKey)) {
-                swal("请配置您的 accessKey 和 secretKey ~");
-                return false;
-            }
             var oe = e.originalEvent;
             var clipboardData, items, item;
             if (oe && (clipboardData = oe.clipboardData) && (items = clipboardData.items)) {
@@ -561,10 +546,6 @@ chrome.runtime.onMessage.addListener((request, sender, sendResponse) => {
     switch (request.message) {
         case 'uploadImageDataByURL':
             var imageURL = request.url;
-            if (!(accessKey && secretKey)) {
-                swal("请配置您的 accessKey 和 secretKey ~");
-                return false;
-            }
             if (imageURL) {
                 Pb.prototype.imageToBase64(imageURL, (base64, data) => {
                     localStorage.webImg = 1;
