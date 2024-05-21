@@ -6,7 +6,7 @@ if (blob) {
     window.close();
 }
 // 上传地址
-var upUrl = 'https://sm.ms/api/v2/upload';
+var upUrl = 'https://oosnail.oss-cn-hangzhou.aliyuncs.com';
 
 Date.prototype.format = function (format) {
     var date = {
@@ -375,6 +375,7 @@ Pb.prototype = {
             swal("您拖的不是图片~");
             return false;
         }
+
     },
     previewAndUpload: function (file, i) {
         Pb.prototype.uploadFinishEvent();
@@ -489,14 +490,26 @@ Pb.prototype = {
 };
 
 function parseRet(text, formData) {
-    var res = JSON.parse(text);
-    var image_url = res.data ? res.data.url : res.images;
-    return image_url;
+    return upUrl + '/' + formData.get('key');
 }
 
 function buildForm(file) {
+    var policyText = {
+        "expiration": new Date((Date.now() + 300000)).toISOString(),
+        "conditions": [
+            ["content-length-range", 0, 104857600]
+        ]
+    };
+    var policyBase64 = Base64.encode(JSON.stringify(policyText));
+    var signature = CryptoJS.enc.Base64.stringify(CryptoJS.HmacSHA1(policyBase64, secretKey));
     var data = new FormData();
-    data.append('smfile', file);
+    var key = new Date().format('yyyy/MM/dd/h/') + random_string(9) + get_suffix(file.name);
+    data.append('key', key);
+    data.append('policy', policyBase64);
+    data.append('OSSAccessKeyId', accessKey);
+    data.append('success_action_status', '200');
+    data.append('signature', signature);
+    data.append('file', file);
     return data;
 }
 
